@@ -1,0 +1,3 @@
+import {z} from 'zod';
+export const actionSchema=z.object({id:z.string().min(1),task:z.string().max(200),owner:z.string().nullable(),due_raw:z.string().nullable(),due_iso:z.string().nullable(),due_resolved_from_relative:z.boolean(),note:z.string().nullable(),done:z.boolean(),evidence:z.array(z.string()).max(4),verified:z.boolean(),confirmed:z.boolean()});
+export const safeUrlSchema=z.string().url().refine(v=>{try{const u=new URL(v);return (u.protocol==='https:'||((u.protocol==='http:')&&['localhost','127.0.0.1'].includes(u.hostname)))&&!u.username&&!u.password}catch{return false}},{message:'Use HTTPS, or localhost for local development.'});
